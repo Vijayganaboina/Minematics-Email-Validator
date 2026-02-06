@@ -1,15 +1,7 @@
 export async function handler(event) {
   const { httpMethod, path, rawQuery, body } = event;
 
-  // Incoming path examples:
-  // /.netlify/functions/emailProxy/validate
-  // /.netlify/functions/emailProxy/validate/batch
-  const proxyPath = path.split("/emailProxy")[1] || "";
-
-  const targetBase = "https://rapid-email-verifier.fly.dev/api";
-  const targetUrl = `${targetBase}${proxyPath}${rawQuery ? `?${rawQuery}` : ""}`;
-
-  // Handle preflight (some browsers may still send OPTIONS)
+  // Handle preflight
   if (httpMethod === "OPTIONS") {
     return {
       statusCode: 204,
@@ -21,6 +13,13 @@ export async function handler(event) {
       body: "",
     };
   }
+
+  // In Netlify, the function path comes in like:
+  // /.netlify/functions/emailProxy/validate
+  // /.netlify/functions/emailProxy/validate/batch
+  const proxyPath = path.split("/.netlify/functions/emailProxy")[1] || "";
+  const targetBase = "https://rapid-email-verifier.fly.dev/api";
+  const targetUrl = `${targetBase}${proxyPath}${rawQuery ? `?${rawQuery}` : ""}`;
 
   try {
     const res = await fetch(targetUrl, {

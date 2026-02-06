@@ -2,8 +2,8 @@ import { useMemo, useState } from "react";
 import * as XLSX from "xlsx";
 import "./App.css";
 
-// const API_BASE = "/api";
-const API_BASE = import.meta.env.VITE_API_BASE || "https://rapid-email-verifier.fly.dev/api";
+const API_BASE = "/api";
+// const API_BASE = import.meta.env.VITE_API_BASE || "https://rapid-email-verifier.fly.dev/api";
 
 function normalizeEmail(value) {
   if (value == null) return "";

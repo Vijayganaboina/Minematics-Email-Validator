@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import * as XLSX from "xlsx";
 import "./App.css";
 
-const API_BASE = import.meta.env.VITE_API_BASE || "https://rapid-email-verifier.fly.dev/api";
+const API_BASE = "/api";
 
 function normalizeEmail(value) {
   if (value == null) return "";
@@ -192,7 +192,7 @@ export default function App() {
       {/* Top bar */}
       <header className="topbar">
         <div className="brand">
-          {/* IMPORTANT: logo in /public => src="/minematics.png" */}
+          {/* ✅ IMPORTANT: logo in /public => src="/minematics.png" */}
           <img className="logo" src="/minematics.png" alt="Minematics"/>
           <div className="brandText">
             <div className="appTitle">Email Validator</div>
@@ -294,7 +294,7 @@ export default function App() {
             </div>
 
             {batchError && <div className="alert alertError">{batchError}</div>}
-            {batchLoading && <div className="alert">Validating emails from your sheet...</div>}
+            {batchLoading && <div className="alert">Validating emails from your sheet…</div>}
 
             {batchSummary && (
               <div className="details">
@@ -337,4 +337,3 @@ export default function App() {
     </div>
   );
 }
-
